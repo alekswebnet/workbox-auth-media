@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Worker Media Files Auth</title>
+  <script type="module">
+    import { set, get } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
+    // Define token and add to the IndexedDB store
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    await set('ACCESS_TOKEN', token);
+
+     // Register service worker
+     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(() => {
+        console.warn('[Service Worker]: Registration successful');
+      }, (err) => {
+        console.warn('[Service Worker]: Registration failed');
+        console.warn(err);
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <img width="420" src="./media/cat.jpg" />
+  <video width="420" controls>
+    <source src="./media/city.mp4" type="video/mp4">
+  </video>
+</body>
+</html>
